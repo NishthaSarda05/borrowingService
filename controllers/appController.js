@@ -8,4 +8,4 @@ const controllers = {
     }
 }
 
-module.exports = controllers;
+export default controllers;
