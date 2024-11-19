@@ -1,8 +1,10 @@
-import controllers from '../controllers/appController.js';
+import appControllers from '../controllers/appController.js';
+import { borrowControllers }  from '../controllers/borrowController.js';
 
 const routes = (app) => {
-  app.route('/').get(controllers.default)
-  app.route('/welcome').get(controllers.about);
+  app.route('/').get(appControllers.default)
+  app.route('/welcome').get(appControllers.about);
+  app.route('/borrownow/:bookId').get(borrowControllers.brorrowNow);
 }
 
 export default routes;

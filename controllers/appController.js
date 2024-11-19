@@ -1,4 +1,4 @@
-const controllers = {
+const appControllers = {
     about: (req, res) => {
         res.json("hello Welcome to our Microservce");
     },
@@ -8,4 +8,4 @@ const controllers = {
     }
 }
 
-export default controllers;
+export default appControllers;
