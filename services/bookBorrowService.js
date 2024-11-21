@@ -1,21 +1,29 @@
 
-import Books from '../models/Books.js';
 
+import { borrowMapper } from '../mappers/borrowMapper.js';
+import { borrowDBHelper } from '../helper/borrowDBHelper.js';
 const bookBorrowService = {
-    borrowNow: async (bookID) => {
-        try{
-            //const books = await Books.find();
-            const book = await Books.findOne({bookId: bookID});
-            if (book && !book.isAvailable){
 
-                return book.name + " not avaialble in Stock";
+    borrowNow: async (bookID, userId) => {
+        const book = await borrowDBHelper.findBookbyId(bookID);
+        if (book) {
+            if (book.isAvailable) {
+                const bookDetails = borrowMapper.mapBorrowSuccessDetails(book, userId);
+                return bookDetails;
             }
-            return book.name + " is issued to your account";
+            return borrowMapper.mapBorrowFailureDetails(book, userId);
         }
-        catch(error){
-            console.log("exception " + error); 
-            return "error occured";
+
+        return { message: "Sorrry, we couldn't find the book" }
+
+    },
+
+    isBookAvailable: async (bookID) => {
+        const book = await borrowDBHelper.findBookbyId(bookID);
+        if (book && book.isAvailable) {
+            return "book is avaiable";
         }
+        return "book is not avaiable";
     }
 }
 
