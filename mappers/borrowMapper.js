@@ -1,23 +1,24 @@
 import { borrowDBHelper } from "../helper/borrowDBHelper.js";
+import date from "date-and-time";
 
 export const borrowMapper = {    
 
     mapBorrowSuccessDetails : (book, userId) => {
-        const today = Date();
+        const today = new Date();
          const bororwDetails ={
            isBorrrowSuccess: true,
            message: "book is successfully issued",           
            bookId: book.bookId,
            bookname: book.name,
-           borrowId: crypto. randomUUID(),
+           borrowId: crypto.randomUUID(),
            borrowDate: today,
-           dueDate: new Date(new Date().setDate(today.getDate() + 20)),
+           dueDate: date.addDays(today, 20),
            borrowedByUser: {
             userId:userId
            }
         }
 
-        borrowDBHelper.saveBorrowDetails(bororwDetails);
+        borrowDBHelper.saveBorrowDetails(bororwDetails, book.bookID);
 
         return bororwDetails;
 

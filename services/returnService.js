@@ -12,7 +12,7 @@ export const returnService = {
                     const dueAmt = utiltyFunction.getDueAmount(borrowDetails.dueDate);
                     return { message: "please clear the due amount of Rs " + dueAmt }
                 } else {
-                    await returnDBHelper.deleteBorrowDetailOnSuccessfulReturn(borrowDetails.borrowId);
+                    await returnDBHelper.deleteBorrowDetailOnSuccessfulReturn(borrowDetails.borrowId, bookID);
                     return { message: "your Return is successful " }
                 }
             } else {
@@ -36,11 +36,11 @@ const utiltyFunction = {
     getDueAmount: (dueAmt) => {
         const AMOUNT_Charge_PER_DAY = 5;
         const today = new Date();
-        const dueTime = dueDate.getTime();
+        const dueTime = dueAmt.getTime();
         const currentTime = today.getTime();
 
         const differnce = currentTime - dueTime;
-        const difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+        const difference_In_Days = Math.round(differnce / (1000 * 3600 * 24));
         return difference_In_Days * AMOUNT_Charge_PER_DAY;
     }
 
