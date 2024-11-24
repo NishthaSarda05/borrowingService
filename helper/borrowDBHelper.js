@@ -23,12 +23,17 @@ saveBorrowDetails :  async (borrowDetails, bookID) => {
             console.log("BorrowDetails Saved to DB");
 
             const notificationDTO = {     
+<<<<<<< Updated upstream
                 subject: "Book Issued Successfully",     
                 message: "Book "+ borrowDetails.bookname + " issued Successfully",     
                 receiverEmail: "mdizharahamed@gmail.com"
+=======
+                subject: "Book issued successfully to USER " + borrowDetails.borrowedByUser.userId,  
+                message: "You have borrowed the book :" + bororwDetailsobj.bookname + " successfully"
+>>>>>>> Stashed changes
             };
-
-            axios.post(`http://EMAIL-SERVICE/api/notifications/notify/${borrowDetails.borrowedByUser.userId}`, notificationDTO)
+            console.log(notificationDTO);
+            axios.post(`http://localhost:8081/api/notifications/notify/${borrowDetails.borrowedByUser.userId}`, notificationDTO)
 
         }catch (error) {
             console.log(error);
