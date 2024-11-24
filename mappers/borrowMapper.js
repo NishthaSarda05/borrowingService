@@ -18,7 +18,7 @@ export const borrowMapper = {
            }
         }
 
-        borrowDBHelper.saveBorrowDetails(bororwDetails, book.bookID);
+        borrowDBHelper.saveBorrowDetails(bororwDetails, book.bookId);
 
         return bororwDetails;
 

@@ -1,5 +1,4 @@
 import BorrowDetails from "../models/BorrowDetails.js"; 
-import fetch from "node-fetch";
 import axios from "axios";
 export const borrowDBHelper = {
 
@@ -18,10 +17,19 @@ saveBorrowDetails :  async (borrowDetails, bookID) => {
               }
             });
             await bororwDetailsobj.save();
-            const url  = 'http://localhost:3000/book/'+ bookID + '/true';
+            const url  = 'http://localhost:3000/book/'+ bookID + '/false';
             await axios.get(url);
             console.log("borrow Service updated book DB");            
             console.log("BorrowDetails Saved to DB");
+
+            const notificationDTO = {     
+                subject: "Welcome to Book Management System",     
+                message: "You have been registered successfully",     
+                receiverEmail: "mdizharahamed@gmail.com"
+            };
+
+            axios.post(`http://EMAIL-SERVICE/api/notifications/notify/${borrowDetails.borrowedByUser.userId}`, notificationDTO)
+
         }catch (error) {
             console.log(error);
         }
