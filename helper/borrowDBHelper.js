@@ -23,8 +23,8 @@ saveBorrowDetails :  async (borrowDetails, bookID) => {
             console.log("BorrowDetails Saved to DB");
 
             const notificationDTO = {     
-                subject: "Welcome to Book Management System",     
-                message: "You have been registered successfully",     
+                subject: "Book Issued Successfully",     
+                message: "Book "+ borrowDetails.bookname + " issued Successfully",     
                 receiverEmail: "mdizharahamed@gmail.com"
             };
 
